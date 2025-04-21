@@ -1,3 +1,4 @@
 # syoo11-first-app
 
-Hosting by Azure [syoo11-first-app](http://syoo11-first-app.azurewebsites.net){:target="_blank"}
+Hosting by Azure,  
+<a href="[https://www.google.com/](http://syoo11-first-app.azurewebsites.net)" target="_blank">http://syoo11-first-app.azurewebsites.net</a>
