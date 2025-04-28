@@ -11,6 +11,7 @@ var usersRouter = require('./routes/users');
 var { swaggerUi, specs } = require('./swagger');
 
 var app = express();
+var port = process.env.PORT || 3000; 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,9 +28,18 @@ app.use('/users', usersRouter);
 
 // swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-// 예시 라우트
+
+// route example
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello World!' });
+});
+
+// Vue.js 빌드 파일 제공 (frontend/dist)
+app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+
+// 모든 요청을 index.html로 리디렉션
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
 
 // catch 404 and forward to error handler
@@ -46,6 +56,11 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+// 서버 시작
+app.listen(port, function() {
+  console.log(`Server is running on port ${port}`);
 });
 
 module.exports = app;
