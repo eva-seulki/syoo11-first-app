@@ -1,21 +1,26 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cors = require('cors'); 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
+// localhost:3000 defualt rendering page
+const indexRouter = require('./routes/index');
+// const usersRouter = require('./routes/users');
 // swagger
-var { swaggerUi, specs } = require('./swagger');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 
-var app = express();
-var port = process.env.PORT || 3000; 
+const app = express();
+const port = process.env.PORT || 3000; 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// cors
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -24,22 +29,42 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 
-// swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+// API Document Config (Swagger JSON file derecto)
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API 문서',
+      version: '1.0.0',
+      description: 'Node.js + Vue Project Swagger API Documents',
+    },
+  },
+  apis: ['./routes/*.js'], // Swagger annotation
+};
+// Swagger UI 서빙
+// SwaggerSpec 설정
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+console.log(swaggerSpec);
 
-// route example
+// Swagger UI 서빙
+app.use('/api-docs', (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store');  // 캐시 비활성화
+  next();
+}, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// TODO - Delete : route test
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello World!' });
 });
 
-// Vue.js 빌드 파일 제공 (frontend/dist)
+// // Vue.js build file (frontend/dist)
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
-// 모든 요청을 index.html로 리디렉션
+// 나머지 모든 요청은 Vue 애플리케이션의 index.html로 라우팅
 app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
 });
 
 // catch 404 and forward to error handler
@@ -47,18 +72,18 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
+// Error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // Render the error page
   res.status(err.status || 500);
   res.render('error');
 });
 
-// 서버 시작
+// Start Server
 app.listen(port, function() {
   console.log(`Server is running on port ${port}`);
 });

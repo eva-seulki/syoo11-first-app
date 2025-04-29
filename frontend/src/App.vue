@@ -4,18 +4,17 @@ import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div id="app">
+    <h1>My App</h1>
+    <router-view></router-view>
+  </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+};
+</script>
 
 <style scoped>
 header {

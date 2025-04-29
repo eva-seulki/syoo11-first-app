@@ -4,13 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "serve": "vite",  
+    "build": "vite build", 
+    "preview": "vite preview"
   },
   "dependencies": {
+    "swagger-ui-dist": "^5.21.0",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
