@@ -15,10 +15,6 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const app = express();
 const port = process.env.PORT || 3000; 
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
 // cors
 app.use(cors());
 
@@ -26,7 +22,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
 
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
@@ -60,7 +56,7 @@ app.get('/api/hello', (req, res) => {
 });
 
 // // Vue.js build file (frontend/dist)
-app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+app.use(express.static(path.join(__dirname, '/front/')));
 
 // 나머지 모든 요청은 Vue 애플리케이션의 index.html로 라우팅
 app.get('*', function(req, res) {
@@ -84,6 +80,7 @@ app.use(function(err, req, res, next) {
 });
 
 // Start Server
+const PORT = process.env.PORT || 8080;
 app.listen(port, function() {
   console.log(`Server is running on port ${port}`);
 });
