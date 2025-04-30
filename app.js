@@ -64,7 +64,7 @@ app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
 // 나머지 모든 요청은 Vue 애플리케이션의 index.html로 라우팅
 app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
 
 // catch 404 and forward to error handler
