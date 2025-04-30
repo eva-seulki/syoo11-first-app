@@ -22,7 +22,7 @@ Swagger UI is available at:
 - [x] Vite: Proxy API requests to the backend server
 - [x] CORS enabled for frontend-backend integration
 - [x] Open API: Swagger UI (`/api-docs`)
-- [ ] UI framework: Vuetify-based UI with Material Design
-- [ ] Database integration
+- [x] UI framework: Vuetify-based UI with Material Design
+- [x] Database integration: Azure Database for MySQL flexible server 
 
 ## ✒️Release Note

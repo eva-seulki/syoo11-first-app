@@ -9,6 +9,9 @@ const indexRouter = require('./routes/index');
 // swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
+// mysql
+const mysql = require('mysql2');
+
 const app = express();
 const port = process.env.PORT || 3000; 
 
@@ -40,7 +43,7 @@ console.log(swaggerSpec);
 
 // Swagger UI
 app.use('/api-docs', (req, res, next) => {
-  res.setHeader('Cache-Control', 'no-store');  // 캐시 비활성화
+  res.setHeader('Cache-Control', 'no-store');
   next();
 }, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
@@ -57,21 +60,34 @@ app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+// Azure MySQL Connection
+const connection = mysql.createConnection({
+  host: 'syoo11-mysql.mysql.database.azure.com',  
+  user: 'admin1', 
+  password: 'a1234567!!',  
+  database: 'syoo11_db',  
+  ssl: {
+    rejectUnauthorized: true  
+  }
 });
 
-// Error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // Render the error page
-  res.status(err.status || 500);
-  res.render('error');
+// Confirm Connection
+connection.connect((err) => {
+  if (err) {
+    console.error('Error :', err);
+  } else {
+    console.log('Connected to MySQL Database');
+  }
 });
+
+// Query Example
+connection.query('SELECT * FROM my_table', (err, results) => {
+  if (err) throw err;
+  console.log(results);
+});
+
+// End Connection
+connection.end();
 
 // Start Server
 const PORT = process.env.PORT || 8080;

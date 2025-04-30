@@ -11,7 +11,7 @@ const options = {
       description: 'Node.js Express API with Swagger',
     },
   },
-  apis: ['./routes/*.js'], // 주석으로 API 문서 생성할 라우터 경로
+  apis: ['./routes/*.js'],
 };
 
 const specs = swaggerJsdoc(options);
