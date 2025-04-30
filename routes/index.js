@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-
+var { pool } = require('../datasource'); 
 /**
  * @swagger
  * /api/hello:
@@ -21,7 +21,14 @@ var path = require('path');
  *                   example: Hello World!
  */
 router.get('/api/hello', function(req, res, next) {
-  res.json({ message: 'Hello World!' });
+  pool.query('SELECT * FROM my_table', (err, results) => {
+    if (err) {
+      console.error('Database query failed:', err);
+      res.status(500).send('Database query failed');
+      return;
+    }
+    res.json(results); // return json format data
+  });
 });
 
 module.exports = router;

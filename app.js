@@ -9,8 +9,8 @@ const indexRouter = require('./routes/index');
 // swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
-// mysql
-const mysql = require('mysql2');
+// mysql - connection pool
+const pool = require('./datasource');
 
 const app = express();
 const port = process.env.PORT || 3000; 
@@ -47,11 +47,6 @@ app.use('/api-docs', (req, res, next) => {
   next();
 }, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// TODO - Delete : route test
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello World!' });
-});
-
 // Vue.js build file (frontend/dist)
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
@@ -59,35 +54,6 @@ app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
-
-// Azure MySQL Connection
-const connection = mysql.createConnection({
-  host: 'syoo11-mysql.mysql.database.azure.com',  
-  user: 'admin1', 
-  password: 'a1234567!!',  
-  database: 'syoo11_db',  
-  ssl: {
-    rejectUnauthorized: true  
-  }
-});
-
-// Confirm Connection
-connection.connect((err) => {
-  if (err) {
-    console.error('Error :', err);
-  } else {
-    console.log('Connected to MySQL Database');
-  }
-});
-
-// Query Example
-connection.query('SELECT * FROM my_table', (err, results) => {
-  if (err) throw err;
-  console.log(results);
-});
-
-// End Connection
-connection.end();
 
 // Start Server
 const PORT = process.env.PORT || 8080;
