@@ -4,47 +4,41 @@ const logger = require('morgan');
 const express = require('express');
 const path = require('path');
 const cors = require('cors'); 
-
 // localhost:3000 defualt rendering page
 const indexRouter = require('./routes/index');
-// const usersRouter = require('./routes/users');
 // swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
-
 const app = express();
 const port = process.env.PORT || 3000; 
 
 // cors
 app.use(cors());
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'frontend/dist')));
-
 app.use('/', indexRouter);
-// app.use('/users', usersRouter);
 
 // API Document Config (Swagger JSON file derecto)
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
     info: {
-      title: 'API 문서',
+      title: 'API Docs',
       version: '1.0.0',
       description: 'Node.js + Vue Project Swagger API Documents',
     },
   },
   apis: ['./routes/*.js'], // Swagger annotation
 };
-// Swagger UI 서빙
-// SwaggerSpec 설정
+
+// SwaggerSpec Config
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 console.log(swaggerSpec);
 
-// Swagger UI 서빙
+// Swagger UI
 app.use('/api-docs', (req, res, next) => {
   res.setHeader('Cache-Control', 'no-store');  // 캐시 비활성화
   next();
@@ -55,10 +49,10 @@ app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello World!' });
 });
 
-// // Vue.js build file (frontend/dist)
-app.use(express.static(path.join(__dirname, '/front/')));
+// Vue.js build file (frontend/dist)
+app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
-// 나머지 모든 요청은 Vue 애플리케이션의 index.html로 라우팅
+// Route all the other request to frontend Vue+Vite
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });

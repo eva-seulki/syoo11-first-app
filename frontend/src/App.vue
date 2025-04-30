@@ -1,13 +1,35 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import Home from './components/Home.vue'
 import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
-  <div id="app">
-    <h1>My App</h1>
-    <router-view></router-view>
-  </div>
+  <v-app>
+    <!-- GNB -->
+    <v-app-bar app color="primary" dark>
+      <v-toolbar-title>My App</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn text to="/">Home</v-btn>
+      <v-btn text to="/about">About</v-btn>
+      <v-btn text to="/contact">Contact</v-btn>
+    </v-app-bar>
+
+    <!-- Main content -->
+    <v-main>
+      <router-view />
+    </v-main>
+
+    <!-- Footer -->
+    <v-footer app color="grey lighten-3">
+      <v-container>
+        <v-row justify="center">
+          <v-col class="text-center" cols="12">
+            © {{ new Date().getFullYear() }} My App. All rights reserved.
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
@@ -17,30 +39,4 @@ export default {
 </script>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>

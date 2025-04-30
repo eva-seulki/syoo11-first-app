@@ -1,11 +1,10 @@
-import './assets/main.css'
-
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
 import { createRouter, createWebHistory } from 'vue-router';
-
-// imports
-import Home from './components/HelloWorld.vue';
+// vuetify
+import vuetify from './plugins/vuetify';
+// vue
+import Home from './components/Home.vue';
 import About from './components/TheWelcome.vue';
 // routes
 const routes = [
@@ -21,7 +20,6 @@ const routes = [
   },
 ];
 
-// Vue Router 인스턴스 생성
 const router = createRouter({
     history: createWebHistory(),
     routes,
@@ -29,4 +27,5 @@ const router = createRouter({
 
 createApp(App)
   .use(router)
+  .use(vuetify)
   .mount('#app');
