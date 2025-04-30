@@ -16,13 +16,13 @@ Swagger UI is available at:
       
 ## ✅ Features  
   
-- [x] CI/CD with GitHub-Azure integration 
-- [x] Backend Server: Node.js + Express basic server setup  
-- [x] Frontend Server: Vue.js  
-- [ ] Swagger UI integration (`/api-docs`)  
-- [ ] DB integration: []  
-- [ ] I Component Library: Vuetify
-- [ ] Building a dynamic page by composing the UI and retrieving data from the database
-- [ ]  
+- [x] CI/CD with GitHub Actions for automatic deployment to Azure
+- [x] Backend Server: Node.js + Express
+- [x] Frontend Server: Vue.js
+- [x] Vite: Proxy API requests to the backend server
+- [x] CORS enabled for frontend-backend integration
+- [x] Open API: Swagger UI (`/api-docs`)
+- [ ] UI framework: Vuetify-based UI with Material Design
+- [ ] Database integration
 
 ## ✒️Release Note
