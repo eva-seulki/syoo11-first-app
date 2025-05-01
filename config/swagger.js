@@ -2,18 +2,18 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
-const options = {
+const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
       title: 'myExpressApp API',
       version: '1.0.0',
-      description: 'Node.js Express API with Swagger',
+      description: 'Node.js + Vue Project Swagger API Documents',
     },
   },
-  apis: ['./routes/*.js'],
+  apis: ['./backend/*.js'],
 };
 
-const specs = swaggerJsdoc(options);
+const specs = swaggerJsdoc(swaggerOptions);
 
-module.exports = { swaggerUi, specs };
+module.exports = { swaggerUi, swaggerJsdoc, swaggerOptions };

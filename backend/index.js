@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var { pool } = require('../datasource'); 
+var { pool } = require('../config/datasource'); 
 /**
  * @swagger
  * /api/hello:
