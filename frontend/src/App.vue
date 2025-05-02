@@ -1,42 +1,65 @@
-<script setup>
-import Home from './components/Home.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <v-app>
-    <!-- GNB -->
-    <v-app-bar app color="primary" dark>
-      <v-toolbar-title>My App</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn text to="/">Home</v-btn>
-      <v-btn text to="/about">About</v-btn>
-      <v-btn text to="/contact">Contact</v-btn>
-    </v-app-bar>
-
-    <!-- Main content -->
-    <v-main>
-      <router-view />
-    </v-main>
-
-    <!-- Footer -->
-    <v-footer app color="grey lighten-3">
-      <v-container>
-        <v-row justify="center">
-          <v-col class="text-center" cols="12">
-            © {{ new Date().getFullYear() }} My App. All rights reserved.
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-footer>
-  </v-app>
+  <sidenav
+    v-if="$store.state.showSidenav"
+    :custom_class="$store.state.mcolor"
+    :class="[
+      $store.state.isTransparent,
+      $store.state.isRTL ? 'fixed-end' : 'fixed-start',
+    ]"
+  />
+  <main
+    class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+    :style="$store.state.isRTL ? 'overflow-x: hidden' : ''"
+  >
+    <!-- nav -->
+    <navbar
+      v-if="$store.state.showNavbar"
+      :class="[navClasses]"
+      :text-white="$store.state.isAbsolute ? 'text-white opacity-8' : ''"
+      :min-nav="navbarMinimize"
+    />
+    <router-view />
+    <app-footer v-show="$store.state.showFooter" />
+    <configurator
+      :toggle="toggleConfigurator"
+      :class="[
+        $store.state.showConfig ? 'show' : '',
+        $store.state.hideConfigButton ? 'd-none' : '',
+      ]"
+    />
+  </main>
 </template>
-
 <script>
+import Sidenav from "./examples/Sidenav/index.vue";
+import Configurator from "@/examples/Configurator.vue";
+import Navbar from "@/examples/Navbars/Navbar.vue";
+import AppFooter from "@/examples/Footer.vue";
+import { mapMutations } from "vuex";
 export default {
-  name: 'App',
+  name: "App",
+  components: {
+    Sidenav,
+    Configurator,
+    Navbar,
+    AppFooter,
+  },
+
+  computed: {
+    navClasses() {
+      return {
+        "position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky":
+          this.$store.state.isNavFixed,
+        "position-absolute px-4 mx-0 w-100 z-index-2":
+          this.$store.state.isAbsolute,
+        "px-0 mx-4 mt-4": !this.$store.state.isAbsolute,
+      };
+    },
+  },
+  beforeMount() {
+    this.$store.state.isTransparent = "bg-transparent";
+  },
+  methods: {
+    ...mapMutations(["toggleConfigurator", "navbarMinimize"]),
+  },
 };
 </script>
-
-<style scoped>
-</style>
