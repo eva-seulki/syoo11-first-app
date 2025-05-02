@@ -13,7 +13,7 @@
       ></i>
       <a class="m-0 navbar-brand" href="/">
         <img :src="logo" class="navbar-brand-img h-100" alt="main_logo" />
-        <span class="ms-1 font-weight-bold">ITMD 504 - 2025, Illinois Tech</span>
+        <span class="ms-1 font-weight-bold">2025' ITMD 504</span>
       </a>
     </div>
     <hr class="mt-0 horizontal dark" />
