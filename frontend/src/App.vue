@@ -35,6 +35,8 @@ import Configurator from "@/examples/Configurator.vue";
 import Navbar from "@/examples/Navbars/Navbar.vue";
 import AppFooter from "@/examples/Footer.vue";
 import { mapMutations } from "vuex";
+import { onMounted } from 'vue';
+
 export default {
   name: "App",
   components: {
@@ -57,6 +59,8 @@ export default {
   },
   beforeMount() {
     this.$store.state.isTransparent = "bg-transparent";
+  },
+  mounted() {
   },
   methods: {
     ...mapMutations(["toggleConfigurator", "navbarMinimize"]),

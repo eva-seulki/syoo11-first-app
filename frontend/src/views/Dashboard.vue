@@ -7,11 +7,10 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="d-flex flex-column h-100">
-                  <p class="mb-1 pt-2 text-bold">Built by developers</p>
-                  <h5 class="font-weight-bolder">ITMD 504 - Spring 2025 at Illinoistech</h5>
+                  <p class="mb-1 pt-2 text-bold">Final Assessment</p>
+                  <h5 class="font-weight-bolder">ITMD 504 - Spring 2025, Illinoistech</h5>
                   <p class="mb-5">
-                    From colors, cards, typography to complex elements, you will
-                    find the full documentation.
+                    This website was developed as the final assessment project for ITMD 504 – Advanced Web Application Development at Illinois Institute of Technology.
                   </p>
                 </div>
               </div>
@@ -50,11 +49,10 @@
               class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3"
             >
               <h5 class="text-white font-weight-bolder mb-4 pt-2">
-                Work with the rockets
+                About This Project
               </h5>
               <p class="text-white">
-                Wealth creation is an evolutionarily recent positive-sum game.
-                It is all about who take the opportunity first.
+                The project showcases features such as routing, API consumption, UI component design, and responsive layout techniques.
               </p>
             </div>
           </div>

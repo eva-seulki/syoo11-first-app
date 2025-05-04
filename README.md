@@ -18,7 +18,9 @@ Swagger UI is available at:
 
 Azure Devops:
 <img width="1382" alt="Image" src="https://github.com/user-attachments/assets/6941b448-b769-4e50-9351-60ce94746c47" />  
-
+  
+## 📈 Database Table Snapshot  
+<img width="1666" alt="Image" src="https://github.com/user-attachments/assets/7bea6fd3-fb38-4512-a059-19c9ffa1a6fe" />  
 
 ## 💻 Technologies Used
 

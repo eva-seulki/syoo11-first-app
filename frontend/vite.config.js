@@ -24,6 +24,7 @@ export default defineConfig({
         changeOrigin: true,
       },
       '/api': 'http://localhost:3000',
+      '/api/author': 'http://localhost:3000',
     },
   }
 })

@@ -20,7 +20,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'frontend/dist')));
-app.use('/', indexRouter);
+
+// API request (/backend/index.js)
+app.use('/api', indexRouter);
 
 // Swagger UI
 app.use('/api-docs', (req, res, next) => {
