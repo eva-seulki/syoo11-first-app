@@ -1,9 +1,9 @@
 <template>
   <div class="pb-0 card-header">
-    <h6>Sales overview</h6>
+    <h6>Data fetched from the database</h6>
     <p class="text-sm">
       <i class="fa fa-arrow-up text-success"></i>
-      <span class="font-weight-bold">4% more</span> in 2021
+      <span class="font-weight-bold">Verify the data in Swagger API</span> (/api/dashboard/line-chart)
     </p>
   </div>
   <div class="p-3 card-body">
@@ -20,109 +20,96 @@ export default {
   name: "GradientLineChart",
 
   mounted() {
-    var ctx2 = document.getElementById("chart-line").getContext("2d");
+    const ctx2 = document.getElementById("chart-line").getContext("2d");
 
-    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
-
+    const gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
     gradientStroke1.addColorStop(1, "rgba(203,12,159,0.2)");
     gradientStroke1.addColorStop(0.2, "rgba(72,72,176,0.0)");
-    gradientStroke1.addColorStop(0, "rgba(203,12,159,0)"); //purple colors
+    gradientStroke1.addColorStop(0, "rgba(203,12,159,0)");
 
-    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
-
+    const gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
     gradientStroke2.addColorStop(1, "rgba(20,23,39,0.2)");
     gradientStroke2.addColorStop(0.2, "rgba(72,72,176,0.0)");
-    gradientStroke2.addColorStop(0, "rgba(20,23,39,0)"); //purple colors
+    gradientStroke2.addColorStop(0, "rgba(20,23,39,0)");
 
-    new Chart(ctx2, {
-      type: "line",
-      data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [
-          {
-            label: "Mobile apps",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#cb0c9f",
-            // eslint-disable-next-line no-dupe-keys
-            borderWidth: 3,
-            backgroundColor: gradientStroke1,
-            fill: true,
-            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-            maxBarThickness: 6,
+    fetch("/api/dashboard/line-chart")
+      .then((res) => res.json())
+      .then((chartData) => {
+        new Chart(ctx2, {
+          type: "line",
+          data: {
+            labels: chartData.labels,
+            datasets: chartData.datasets.map((ds) => ({
+              ...ds,
+              tension: 0.4,
+              borderWidth: 3,
+              pointRadius: 0,
+              fill: true,
+              borderColor: ds.label === "Mobile apps" ? "#cb0c9f" : "#3A416F",
+              backgroundColor: ds.label === "Mobile apps" ? gradientStroke1 : gradientStroke2,
+              maxBarThickness: 6,
+            })),
           },
-          {
-            label: "Websites",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#3A416F",
-            // eslint-disable-next-line no-dupe-keys
-            borderWidth: 3,
-            backgroundColor: gradientStroke2,
-            fill: true,
-            data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-            maxBarThickness: 6,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
-        interaction: {
-          intersect: false,
-          mode: "index",
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5],
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
             },
-            ticks: {
-              display: true,
-              padding: 10,
-              color: "#b2b9bf",
-              font: {
-                size: 11,
-                family: "Open Sans",
-                style: "normal",
-                lineHeight: 2,
+            interaction: {
+              intersect: false,
+              mode: "index",
+            },
+            scales: {
+              y: {
+                grid: {
+                  drawBorder: false,
+                  display: true,
+                  drawOnChartArea: true,
+                  drawTicks: false,
+                  borderDash: [5, 5],
+                },
+                ticks: {
+                  display: true,
+                  padding: 10,
+                  color: "#b2b9bf",
+                  font: {
+                    size: 11,
+                    family: "Open Sans",
+                    style: "normal",
+                    lineHeight: 2,
+                  },
+                },
+              },
+              x: {
+                grid: {
+                  drawBorder: false,
+                  display: false,
+                  drawOnChartArea: false,
+                  drawTicks: false,
+                  borderDash: [5, 5],
+                },
+                ticks: {
+                  display: true,
+                  color: "#b2b9bf",
+                  padding: 20,
+                  font: {
+                    size: 11,
+                    family: "Open Sans",
+                    style: "normal",
+                    lineHeight: 2,
+                  },
+                },
               },
             },
           },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-              borderDash: [5, 5],
-            },
-            ticks: {
-              display: true,
-              color: "#b2b9bf",
-              padding: 20,
-              font: {
-                size: 11,
-                family: "Open Sans",
-                style: "normal",
-                lineHeight: 2,
-              },
-            },
-          },
-        },
-      },
-    });
+        });
+      })
+      .catch((err) => {
+        console.error("Failed to load chart data:", err);
+      });
   },
 };
 </script>

@@ -31,6 +31,81 @@ router.get('/hello', function(req, res, next) {
     res.json(results); // return json format data
   });
 });
+/**
+ * @swagger
+ * tags:
+ *   - name: Dashboard
+ *     description: API related to dashboard.
+ */
+/**
+ * @swagger
+ * /api/dashboard/line-chart:
+ *   get:
+ *     summary: Get linechart data
+ *     description: Retrieve monthly data for Mobile apps and Websites.
+ *     tags:
+ *       - Chart
+ *     responses:
+ *       200:
+ *         description: Chart data retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 labels:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                 datasets:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       label:
+ *                         type: string
+ *                       data:
+ *                         type: array
+ *                         items:
+ *                           type: integer
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/dashboard/line-chart', function (req, res) {
+  const sql = `
+                SELECT month,
+                       MAX(CASE WHEN category = 'Mobile apps' THEN value END) AS mobile_apps,
+                       MAX(CASE WHEN category = 'Websites' THEN value END) AS websites
+                  FROM line_chart
+              GROUP BY month
+              ORDER BY FIELD(month, 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+              `;
+
+  pool.query(sql, (err, results) => {
+    if (err) {
+      console.error('Database query failed:', err.sqlMessage);
+      return res.status(500).json({ message: 'Database query failed' });
+    }
+
+    const labels = results.map(row => row.month);
+    const mobileApps = results.map(row => row.mobile_apps);
+    const websites = results.map(row => row.websites);
+
+    res.json({
+      labels,
+      datasets: [
+        {
+          label: 'Mobile apps',
+          data: mobileApps,
+        },
+        {
+          label: 'Websites',
+          data: websites,
+        }
+      ]
+    });
+  });
+});
 
 /**
  * @swagger
@@ -100,13 +175,14 @@ router.get('/hello', function(req, res, next) {
  *           type: string
  *           description: Image directory
  */
-
 router.get('/authors', function(req, res, next) {
-  pool.query(`
+  const sql = `
               SELECT ID, CREATE_DATE, IMG_DIR, NAME, EMAIL, JOB_TITLE, SUB_SUBTITLE, STATUS, EMPLOYED_DATE, IS_DELETED 
                 FROM authors
                WHERE IS_DELETED = 0;
-            `, (err, results) => {
+            `;
+
+  pool.query(sql, (err, results) => {
     if (err) {
       console.error('Database query failed:', err.sqlMessage); 
       res.status(500).send('Database query failed');
@@ -166,21 +242,22 @@ router.get('/authors', function(req, res, next) {
  */
 router.put('/authors/:id', function(req, res, next) {
   const authorId = req.params.id; // ID
-  const { NAME, EMAIL, JOB_TITLE, STATUS } = req.body; // Data
+  const { NAME, EMAIL, JOB_TITLE, SUB_SUBTITLE, STATUS } = req.body; // Data
   
-  if (!NAME || !EMAIL || !JOB_TITLE || !STATUS) {
+  if (!NAME || !EMAIL || !JOB_TITLE || !SUB_SUBTITLE || !STATUS) {
     return res.status(400).json({ message: 'Missing required fields' });
   }
-  
-  pool.query(`
+  const sql = `
               UPDATE authors 
                  SET 
                      NAME = ?, 
                      EMAIL = ?, 
                      JOB_TITLE = ?, 
+                     SUB_SUBTITLE = ?,
                      STATUS = ? 
                WHERE ID = ? AND IS_DELETED = 0
-  `, [NAME, EMAIL, JOB_TITLE, STATUS, authorId], (err, results) => {
+              `;
+  pool.query(sql , [NAME, EMAIL, JOB_TITLE, SUB_SUBTITLE, STATUS, authorId], (err, results) => {
     if (err) {
       console.error('Database query failed:', err.sqlMessage);
       return res.status(500).send('Database query failed');

@@ -23,7 +23,6 @@
                     <vsud-avatar :img="`/${author.IMG_DIR}`" size="sm" border-radius="lg" class="me-3" alt="user1" />
                   </div>
                   <div class="d-flex flex-column justify-content-center">
-                    <!-- 이름과 이메일을 수정할 수 있는 필드로 변경 -->
                     <h6 class="mb-0 text-sm">
                       <input v-if="author.isEditing" v-model="author.NAME" class="form-control form-control-sm" />
                       <span v-else>{{ author.NAME }}</span>
@@ -40,10 +39,12 @@
                   <input v-if="author.isEditing" v-model="author.JOB_TITLE" class="form-control form-control-sm" />
                   <span v-else>{{ author.JOB_TITLE }}</span>
                 </p>
-                <p class="text-xs text-secondary mb-0">{{ author.SUB_SUBTITLE }}</p>
+                <p class="text-xs font-weight-bold mb-0">
+                  <input v-if="author.isEditing" v-model="author.SUB_SUBTITLE" class="form-control form-control-sm" />
+                  <span v-else>{{ author.SUB_SUBTITLE }}</span>
+                </p>
               </td>
               <td class="align-middle text-center text-sm">
-                <!-- 상태도 수정 가능하도록 변경 -->
                 <vsud-badge :color="getStatusColor(author.STATUS)" variant="gradient" size="sm">
                   <select v-if="author.isEditing" v-model="author.STATUS" class="form-control form-control-sm">
                     <option value="0">Online</option>
@@ -56,9 +57,7 @@
                 <span class="text-secondary text-xs font-weight-bold">{{ formatDate(author.EMPLOYED_DATE) }}</span>
               </td>
               <td class="align-middle">
-                <!-- Edit 버튼을 누르면 수정 모드로 전환 -->
                 <button v-if="!author.isEditing" @click="editAuthor(author)" class="btn btn-sm btn-primary">Edit</button>
-                <!-- 수정 후 저장 버튼 -->
                 <button v-if="author.isEditing" @click="saveAuthor(author)" class="btn btn-sm btn-success">Save</button>
               </td>
             </tr>
@@ -92,13 +91,13 @@ export default {
     async fetchAuthors() {
       try {
         const response = await axios.get('/api/authors');
-        this.authors = response.data.map(author => ({ ...author, isEditing: false }));  // isEditing 필드 추가
+        this.authors = response.data.map(author => ({ ...author, isEditing: false }));  // isEditing flag
       } catch (error) {
         console.error('Failed to load authors:', error);
       }
     },
     editAuthor(author) {
-      author.isEditing = true;  // Edit 버튼 클릭 시 수정 모드로 전환
+      author.isEditing = true;  // Change to Edit Mode
     },
     async saveAuthor(author) {
       try {
@@ -106,9 +105,10 @@ export default {
           NAME: author.NAME,
           EMAIL: author.EMAIL,
           JOB_TITLE: author.JOB_TITLE,
+          SUB_SUBTITLE: author.SUB_SUBTITLE,
           STATUS: author.STATUS,
         });
-        author.isEditing = false;  // 저장 후 수정 모드 종료
+        author.isEditing = false;  // Save the changes
         console.log('Author updated:', response.data);
       } catch (error) {
         console.error('Failed to update author:', error);
