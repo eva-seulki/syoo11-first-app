@@ -5,38 +5,11 @@ var { pool } = require('../config/datasource');
 
 /**
  * @swagger
- * /api/hello:
- *   get:
- *     summary: Test API
- *     description: index page
- *     responses:
- *       200:
- *         description: success
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: [{"id":1,"create_time":"1925-05-01T15:00:00.000Z","name":"seulki yoo"}]
- */
-router.get('/hello', function(req, res, next) {
-  pool.query('SELECT * FROM my_table', (err, results) => {
-    if (err) {
-      console.error('Database query failed:', err.message);
-      res.status(500).send('Database query failed');
-      return;
-    }
-    res.json(results); // return json format data
-  });
-});
-/**
- * @swagger
  * tags:
  *   - name: Dashboard
  *     description: API related to dashboard.
  */
+
 /**
  * @swagger
  * /api/dashboard/line-chart:
@@ -51,25 +24,33 @@ router.get('/hello', function(req, res, next) {
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 labels:
- *                   type: array
- *                   items:
- *                     type: string
- *                 datasets:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       label:
- *                         type: string
- *                       data:
- *                         type: array
- *                         items:
- *                           type: integer
+ *               $ref: '#/components/schemas/Line-Chart'
  *       500:
  *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Line-Chart:
+ *       type: object
+ *       properties:
+ *         labels:
+ *           type: array
+ *           items:
+ *             type: string
+ *         datasets:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               label:
+ *                 type: string
+ *               data:
+ *                 type: array
+ *                 items:
+ *                   type: integer
  */
 router.get('/dashboard/line-chart', function (req, res) {
   const sql = `
