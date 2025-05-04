@@ -10,7 +10,7 @@
         to="/dashboard"
         v-bind="$attrs"
         :class="isBlur ? 'text-dark' : 'text-white'"
-      >Vite Soft UI Dashboard</router-link>
+      >Dashboard</router-link>
       <button
         class="navbar-toggler shadow-none ms-2"
         type="button"

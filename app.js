@@ -11,7 +11,6 @@ const { swaggerUi, swaggerJsdoc, swaggerOptions } = require('./config/swagger');
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 // express
 const app = express();
-const port = process.env.PORT || 3000; 
 
 // cors
 app.use(cors());
@@ -39,8 +38,8 @@ app.get('*', function(req, res) {
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
 // Start Node Server
-app.listen(port, function() {
-  console.log(`Server is running on port ${port}`);
-});
+// app.listen(port, function() {
+//   console.log(`Server is running on port ${port}`);
+// });
 
 module.exports = app;

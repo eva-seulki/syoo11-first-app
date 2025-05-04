@@ -24,7 +24,7 @@ var { pool } = require('../config/datasource');
 router.get('/hello', function(req, res, next) {
   pool.query('SELECT * FROM my_table', (err, results) => {
     if (err) {
-      console.error('Database query failed:', err);
+      console.error('Database query failed:', err.message);
       res.status(500).send('Database query failed');
       return;
     }
@@ -83,7 +83,7 @@ router.get('/dashboard/line-chart', function (req, res) {
 
   pool.query(sql, (err, results) => {
     if (err) {
-      console.error('Database query failed:', err.sqlMessage);
+      console.error('Database query failed:', err.message);
       return res.status(500).json({ message: 'Database query failed' });
     }
 
@@ -184,7 +184,7 @@ router.get('/authors', function(req, res, next) {
 
   pool.query(sql, (err, results) => {
     if (err) {
-      console.error('Database query failed:', err.sqlMessage); 
+      console.error('Database query failed:', err.message); 
       res.status(500).send('Database query failed');
       return;
     }
@@ -259,7 +259,7 @@ router.put('/authors/:id', function(req, res, next) {
               `;
   pool.query(sql , [NAME, EMAIL, JOB_TITLE, SUB_SUBTITLE, STATUS, authorId], (err, results) => {
     if (err) {
-      console.error('Database query failed:', err.sqlMessage);
+      console.error('Database query failed:', err.message);
       return res.status(500).send('Database query failed');
     }
 
