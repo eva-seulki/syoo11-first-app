@@ -1,4 +1,4 @@
-# 📦 ITMD 504 Final Assessment Project - Spring B
+# 📦 ITMD 504 Final Assessment - 2025 Spring B
 
 This project is part of the final assessment for ITMD 504 in the **Master of Information Technology** program at **Illinois Institute of Technology**, Spring B.
 
@@ -29,7 +29,26 @@ Azure Devops:
 - **Database**: MySQL
 - **Cloud/DevOps**: Azure
 - **Other Tools**: GitHub Actions, Vite, Vuetify, Swagger  
-      
+
+## 🛠️ Project Structure  
+<pre><code>
+syoo11-first-app/
+├── backend/                # Backend server (Node.js + Express)
+│   └── index.js            # Backend API entry point with business logic
+├── frontend/               # Frontend Vue.js application
+│   └── src/                # Vue + Vite source code
+│       ├── App.vue         # Root Vue component
+│       ├── router/         # Vue Router configuration
+│       │   └── index.js    # Route definitions
+│       └── views/          # Page-level Vue components
+├── config/                 # Configuration files
+│   ├── datasource.js       # Database connection settings
+│   └── swagger.js          # OpenAPI (Swagger) configuration
+├── app.js                  # Express server entry (for serving frontend or SSR)
+└── package.json            # Project dependencies and scripts
+</code></pre>  
+
+  
 ## ✅ Features  
   
 - [x] CI/CD with GitHub Actions for automatic deployment to Azure
