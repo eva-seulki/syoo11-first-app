@@ -5,13 +5,13 @@ This project is part of the final assessment for ITMD 504 in the **Master of Inf
 ## 🌍 Live Demo  
   
 Hosted on Azure:  
-🔗 <a href="https://www.google.com/](http://syoo11-first-app.azurewebsites.net" target="_blank">http://syoo11-first-app.azurewebsites.net</a>  
+🔗 <a href="http://syoo11-first-app.azurewebsites.net" target="_blank">http://syoo11-first-app.azurewebsites.net</a>  
   
   
 ## 🌐 API Documentation  
   
 Swagger UI is available at:  
-➡️ <a href="https://www.google.com/](http://syoo11-first-app.azurewebsites.net/api-docs" target="_blank">http://syoo11-first-app.azurewebsites.net/api-docs</a>   
+➡️ <a href="http://syoo11-first-app.azurewebsites.net/api-docs" target="_blank">http://syoo11-first-app.azurewebsites.net/api-docs</a>   
 
   
 ## ✒️ Tasks & User Stories
@@ -40,26 +40,31 @@ Azure Devops:
 > * Node.js / Vite
 > * Azure Web App (Linux instance)  
 
-4. Build Script Snippet  
-> * /frontend/package.json
-  ```
+4. Build Script Snippet
+   
+**`/frontend/package.json`**    
+```json
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   }
-  ```
-> * /package.json
-  ```
+```
+ 
+**`/package.json`**  
+```json
   "scripts": {
     "test": "jest",
     "build": "cd frontend && npm install && npm run build",
     "serve": "node app.js && node server.js",
     "start": "npm run build && npm run serve"
   }
-  ``` 
+```
+ 
 5. Workflow Snippet
-``` yaml
+   
+**`.github/workflows/main_syoo11-first-app.yml`**  
+```yml
 name: Build and deploy Node.js app to Azure Web App - syoo11-first-app
 
 on:
@@ -126,7 +131,7 @@ jobs:
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.[AZUREAPPSERVICE_PUBLISHPROFILE] }}
-```
+```  
 
 
 
