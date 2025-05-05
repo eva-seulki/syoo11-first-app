@@ -139,24 +139,37 @@ jobs:
 ## Project Structure  
 <pre><code>
 syoo11-first-app/
-├── backend/                # Backend server (Node.js + Express)
-│   └── index.js            # Backend API entry point with business logic
-├── frontend/               # Frontend Vue.js application
-│   └── src/                # Vue + Vite source code
+├── app.js                  # Sets up the Express application and middleware
+├── server.js               # Starts the Express server
+├── backend/                # API route handlers and business logic
+│   └── index.js            # Defines backend API routes
+├── config/                 # Configuration files (e.g., DB, Swagger)
+│   ├── datasource.js       # Database connection settings
+│   └── swagger.js          # OpenAPI (Swagger) documentation setup
+├── frontend/               # Frontend application (Vue.js + Vite)
+│   └── src/
 │       ├── App.vue         # Root Vue component
 │       ├── router/         # Vue Router configuration
 │       │   └── index.js    # Route definitions
-│       └── views/          # Page-level Vue components
-├── config/                 # Configuration files
-│   ├── datasource.js       # Database connection settings
-│   └── swagger.js          # OpenAPI (Swagger) configuration
-├── tests/                  # Contains automated tests using Jest and Supertest
-│   └── test.js             # Tests API endpoints
-├── app.js                  # Configures Express app
-├── server.js               # Starts the Express server 
-└── package.json            # Project dependencies and scripts
+│       └── views/          # Page-level Vue components (e.g., Dashboard, Tables)
+├── tests/                  # API endpoint tests
+│   └── test.js             # Uses Jest and Supertest for testing
+├── package.json            # Project dependencies and scripts
+└── README.md               # Project documentation
 </code></pre>  
 
+## Database Configuration  
+**`/config/datasource.js`**  
+``` bash
+const pool = mysql.createPool ({
+    host: 'syoo11-mysql.mysql.database.azure.com',  
+    user: 'admin1', 
+    password: 'a1234567!!',  
+    database: 'syoo11_db',  
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+```   
 ## Technologies and Tools
   
 - [x] CI/CD with GitHub Actions for automatic deployment to Azure
