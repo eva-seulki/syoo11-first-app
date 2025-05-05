@@ -133,7 +133,7 @@ jobs:
           app-name: 'syoo11-first-app'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D9D5D8A852A84E97ADFEF64CF90761C0 }}
+          publish-profile: ${{ secrets.XXXXX }}
 ```  
 
 ## Project Structure  
@@ -163,9 +163,9 @@ syoo11-first-app/
 ``` bash
 const pool = mysql.createPool ({
     host: 'syoo11-mysql.mysql.database.azure.com',  
-    user: 'admin1', 
-    password: 'a1234567!!',  
-    database: 'syoo11_db',  
+    user: 'XXXXX', 
+    password: 'XXXXX',  
+    database: 'XXXXX',  
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
