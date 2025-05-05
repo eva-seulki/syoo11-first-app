@@ -1,30 +1,33 @@
-# 📦 ITMD 504 Final Assessment - 2025 Spring B
+# ITMD 504 Final Assessment - 2025 Spring B
 
 This project is part of the final assessment for ITMD 504 in the **Master of Information Technology** program at **Illinois Institute of Technology**, Spring B.
 
-## 🌍 Live Demo  
+## Git Repository  
+You can find the repository [here (https://github.com/eva-seulki/syoo11-first-app)]("https://github.com/eva-seulki/syoo11-first-app"). Please refer to the README for more details.
+
+## Live Demo  
   
 Hosted on Azure:  
 🔗 <a href="http://syoo11-first-app.azurewebsites.net" target="_blank">http://syoo11-first-app.azurewebsites.net</a>  
   
   
-## 🌐 API Documentation  
+## API Documentation  
   
 Swagger UI is available at:  
 ➡️ <a href="http://syoo11-first-app.azurewebsites.net/api-docs" target="_blank">http://syoo11-first-app.azurewebsites.net/api-docs</a>   
 
   
-## ✒️ Tasks & User Stories
+## Tasks & User Stories
 
 Azure Devops:
 <img width="1710" alt="Image" src="https://github.com/user-attachments/assets/6941b448-b769-4e50-9351-60ce94746c47" />  
 
-## ✒️ Deployment Pipeline  
+## Deployment Pipeline  
 1. Overview
 > The project uses a CI/CD pipeline for automated deployment via GitHub Actions. On every push to the main branch, the application is built and deployed to Azure Web App.
 
 2. Pipeline Flow (Diagram or Bullet Format)
-```
+```bash
   1. Pushes code to GitHub (`main` branch)
   2. GitHub Actions triggers workflow:
      - Install dependencies
@@ -133,17 +136,7 @@ jobs:
           publish-profile: ${{ secrets.[AZUREAPPSERVICE_PUBLISHPROFILE] }}
 ```  
 
-
-
-## 💻 Technologies Used
-
-- **Frontend**: Vue.js
-- **Backend**: Node.js, Express
-- **Database**: MySQL
-- **Cloud/DevOps**: Azure
-- **Other Tools**: GitHub Actions, Vite, Vuetify, Swagger  
-
-## 🛠️ Project Structure  
+## Project Structure  
 <pre><code>
 syoo11-first-app/
 ├── backend/                # Backend server (Node.js + Express)
@@ -164,8 +157,7 @@ syoo11-first-app/
 └── package.json            # Project dependencies and scripts
 </code></pre>  
 
-  
-## ✅ Features  
+## Technologies and Tools
   
 - [x] CI/CD with GitHub Actions for automatic deployment to Azure
 - [x] Backend Server: Node.js + Express
@@ -175,8 +167,9 @@ syoo11-first-app/
 - [x] Open API: Swagger UI (`/api-docs`)
 - [x] UI framework: Vuetify-based UI with Material Design
 - [x] Database integration: Azure Database for MySQL flexible server
+- [x] Other Tools: Azure Database for MySQL flexible server
 
-## 🏃 Installation
+## Run the Application
 
 To get started with this project, follow the steps below:
 
@@ -190,8 +183,8 @@ To get started with this project, follow the steps below:
    npm start
    ```
 
-## 📱 Screenshots  
-
+## Screenshots  
+1. Database
 *Database Schema*
 <img width="1710" alt="Image" src="https://github.com/user-attachments/assets/b715a0e6-6626-4a3a-a9d9-8f0ac4a8836e" />
 <img width="1710" alt="Image" src="https://github.com/user-attachments/assets/eb75ecf0-3a0c-4b76-b9ca-d1e16df35916" />  
@@ -199,4 +192,23 @@ To get started with this project, follow the steps below:
 *Database Snapshot*
 <img width="1710" alt="Image" src="https://github.com/user-attachments/assets/39ea1e33-45a5-496e-917f-9665de2398b6" />
 <img width="1710" alt="Image" src="https://github.com/user-attachments/assets/a89b31a5-8df4-4b07-8589-8a44a60a59f1" />  
+
+2. Routes Overview
+*`/dashboard`*
+- **Description:**
+  Displays a line chart that visualizes data stored in the database.
+- **Features:**
+  Reflects real-time or recent updates from the database.
+<img width="1710" alt="Image" src="https://github.com/user-attachments/assets/004cc322-b4ad-4f07-9138-25db5bfb7017" />  
+
+*`/tables`*  
+- **Description:**
+  Shows a list of records retrieved from the database with inline editing capability.    
+- **Features:**
+  - Displays a table of database entries.
+  - Each row has an **Edit** button.
+  - Once edited, changes are immediately saved to the database without page refresh.
+  - Provides a smooth and efficient user experience for managing data.  
+<img width="1710" alt="Image" src="https://github.com/user-attachments/assets/a405d012-c1a9-4152-907f-a0e90000d3e8" />
+
 
