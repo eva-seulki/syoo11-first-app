@@ -3,18 +3,18 @@
 This project is part of the final assessment for ITMD 504 in the **Master of Information Technology** program at **Illinois Institute of Technology**, Spring B.
 
 ## Git Repository  
-You can find the repository [here (https://github.com/eva-seulki/syoo11-first-app)]("https://github.com/eva-seulki/syoo11-first-app"). Please refer to the README for more details.
+You can find the repository here( <a href="https://github.com/eva-seulki/syoo11-first-app" target="_blank">https://github.com/eva-seulki/syoo11-first-app</a> ). Please refer to the README for more details.
 
 ## Live Demo  
   
 Hosted on Azure:  
-🔗 <a href="http://syoo11-first-app.azurewebsites.net" target="_blank">http://syoo11-first-app.azurewebsites.net</a>  
+<a href="http://syoo11-first-app.azurewebsites.net" target="_blank">http://syoo11-first-app.azurewebsites.net</a>  
   
   
 ## API Documentation  
   
 Swagger UI is available at:  
-➡️ <a href="http://syoo11-first-app.azurewebsites.net/api-docs" target="_blank">http://syoo11-first-app.azurewebsites.net/api-docs</a>   
+<a href="http://syoo11-first-app.azurewebsites.net/api-docs" target="_blank">http://syoo11-first-app.azurewebsites.net/api-docs</a>   
 
   
 ## Tasks & User Stories
@@ -133,7 +133,7 @@ jobs:
           app-name: 'syoo11-first-app'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.[AZUREAPPSERVICE_PUBLISHPROFILE] }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D9D5D8A852A84E97ADFEF64CF90761C0 }}
 ```  
 
 ## Project Structure  
@@ -152,7 +152,7 @@ syoo11-first-app/
 │   └── swagger.js          # OpenAPI (Swagger) configuration
 ├── tests/                  # Contains automated tests using Jest and Supertest
 │   └── test.js             # Tests API endpoints
-├── app.js                  # Configures Express app: middlewares, routes, Swagger, static files
+├── app.js                  # Configures Express app
 ├── server.js               # Starts the Express server 
 └── package.json            # Project dependencies and scripts
 </code></pre>  
