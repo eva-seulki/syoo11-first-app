@@ -40,6 +40,7 @@ Azure Devops:
 <img width="800" alt="Image" src="https://github.com/user-attachments/assets/dbab9b2b-2049-4a58-bbfa-62f142bd59a7" />
 
 3. Key Technologies / Tools  
+
 > * GitHub Actions (.github/workflows/main_syoo11-first-app.yml)
 > * Node.js / Vite
 > * Azure Web App (Linux instance)  
@@ -158,7 +159,7 @@ syoo11-first-app/
 ├── package.json            # Project dependencies and scripts
 └── README.md               # Project documentation
 </code></pre>  
-
+![AzureExportedTemplate](https://github.com/user-attachments/assets/98ea0d8c-67c7-4f84-8528-638a04741316)  
 ## Database Configuration  
 **`/config/datasource.js`**  
 ``` bash
